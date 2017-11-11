@@ -1,0 +1,19 @@
+admin:
+  port: 9990
+  ip: 0.0.0.0
+
+routers:
+- protocol: http
+  label: http
+  dstPrefix: /web
+  identifier:
+    kind: io.l5d.path
+    segments: 1
+    consume: true
+  interpreter:
+    kind: io.l5d.namerd
+    experimental: true
+    dst: /$/inet/namerd/4100
+  servers:
+  - port: 8001
+    ip: 0.0.0.0
