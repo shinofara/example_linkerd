@@ -1,0 +1,18 @@
+admin:
+  port: 9991
+  ip: 0.0.0.0
+
+namers: []
+storage:
+  kind: io.l5d.inMemory
+
+  namespaces:
+    default: |
+      /srv/1 => /$/inet/web1/8080;
+      /srv/2 => /$/inet/web2/8080;
+      /web => /srv;
+
+interfaces:
+- kind: io.l5d.thriftNameInterpreter
+  ip: 0.0.0.0
+  port: 4100

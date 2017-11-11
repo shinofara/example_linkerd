@@ -1,0 +1,26 @@
+version: '3.3'
+services:
+  linkerd:
+    image: buoyantio/linkerd:1.3.1
+    volumes: ["./config:/config:ro"]
+    command: /config/linkerd.yml
+    ports: ["9990:9990", "8001:8001"]
+    links: ["namerd"]
+
+  namerd:
+    image: buoyantio/namerd:1.3.1
+    volumes: ["./config:/config:ro"]
+    command: /config/namerd.yml
+    ports: ["9991:9991"]
+
+  web1:
+    image: golang:1.9
+    volumes: ["./web1:/go/src/web:ro"]
+    working_dir: /go/src/web
+    command: go run main.go
+
+  web2:
+    image: golang:1.9
+    volumes: ["./web2:/go/src/web:ro"]
+    working_dir: /go/src/web
+    command: go run main.go
